@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A passionate 3+ years Flutter developer & AI/ML enthusiast">
+  <meta name="author" content="Ye Lwin Oo">
+  <title>yasinowo</title>
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="mypic.jpg">
+
+  <!-- CanvasKit and Flutter -->
+  <script src="https://unpkg.com/canvaskit-wasm@0.37.1/bin/canvaskit.js" defer></script>
+  <link rel="preload" href="https://unpkg.com/canvaskit-wasm@0.37.1/bin/canvaskit.wasm" as="fetch" crossorigin="anonymous">
+  <script src="flutter.js" defer></script>
+  <script src="https://cdn.lordicon.com/bhenfmcm.js" defer></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #F4F4EF;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .loading-label {
+      margin-top: 16px;
+      font-size: 18px;
+      color: black;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loader" class="loading-content">
+    <lord-icon
+      src="https://cdn.lordicon.com/fmpamzwr.json"
+      trigger="loop"
+      colors="primary:#000000,secondary:#ffc738,tertiary:#f24c00"
+      style="width: 200px; height: 200px">
+    </lord-icon>
+    <p class="loading-label" id="loading-text">Loading...</p>
+  </div>
+
+  <script>
+    const loadingTexts = [
+      "Discovering new ways of making you wait...",
+      "Please wait while we ignore you...",
+      "Still faster than Windows update...",
+      "Kindly hold on until I finish a cup of coffee...",
+      "Don't panic, Just count to infinity..."
+    ];
+    const textEl = document.getElementById('loading-text');
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % loadingTexts.length;
+      textEl.innerText = loadingTexts[i];
+    }, 2000);
+
+    window.addEventListener('load', function () {
+      const isDebug = window.location.hostname === "localhost";
+      
+       _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: null,
+          },
+          onEntrypointLoaded: function(engineInitializer) {
+            engineInitializer.initializeEngine().then(function(appRunner) {
+              document.getElementById("loader")?.remove();
+              appRunner.runApp();
+            });
+          }
+        });
+     /* if (isDebug) {
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: null,
+          },
+          onEntrypointLoaded: function(engineInitializer) {
+            engineInitializer.initializeEngine().then(function(appRunner) {
+              document.getElementById("loader")?.remove();
+              appRunner.runApp();
+            });
+          }
+        });
+      } else { 
+        //TODO error update loader 
+      
+      } */
+    });
+  </script>
+</body>
+</html>
